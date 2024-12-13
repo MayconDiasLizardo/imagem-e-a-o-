@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Adicione no <head> para responsividade -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+    <title>🎬 Roleta de Filmes</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #22223c, #000000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 400px;
+        }
+
+        #filme {
+            font-size: 2em;
+            margin: 20px 0;
+            color: #00ff88;
+            text-transform: uppercase;
+        }
+
+        button {
+            background-color: #0f3460;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-transform: uppercase;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            animation: pulse 2s infinite; /* Animação constante */
+        }
+
+        /* Animação de Pulso */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(4, 241, 131, 0.732);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(0, 255, 136, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+            }
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Roleta de Filmes</h1>
+        <div id="filme">Clique para Sortear</div>
+        <button onclick="sortearFilme()">Sortear Filme</button>
+    </div>
+
+    <script>
+        class RoletaFilmes {
+            constructor() {
+                this.filmesFamosos = [
+
+                    "Forrest Gump", "O Poderoso Chefão", "Matrix", "Titanic", 
+                    "Star Wars", "Jurassic Park", "Vingadores", "Homem-Aranha", 
+                    "E.T.", "De Volta para o Futuro", "Exterminador do Futuro", 
+                    "Rei Leão", "Cinderela", "Avatar", "Missão Impossível", 
+                    "Velozes e Furiosos", "Harry Potter", "Senhor dos Anéis", 
+                    "Piratas do Caribe", "Shrek", "Batman", "Superman", 
+                    "Guardiões da Galáxia", "Interestelar", "A Origem", "Se Beber, nao case", 
+                    "Caça Fantasmas", "Esqueceram de Mim", "Pinóquio", "Os Vingadores", "Homem Aranha", 
+                    "Kick Ass", "Grinch", "DeadPool", "Velozes e Furiosos", "Rapunzel", "Moana", "Matilde"
+                    
+                ];
+                this.filmesUsados = [];
+            }
+
+            gerarFilmeAleatorio() {
+                // Se todos os filmes foram usados, reinicia a lista
+                if (this.filmesUsados.length === this.filmesFamosos.length) {
+                    this.filmesUsados = [];
+                }
+
+                // Filtra filmes não usados
+                const filmesDisponiveis = this.filmesFamosos.filter(
+                    filme => !this.filmesUsados.includes(filme)
+                );
+
+                // Seleciona filme aleatório dos disponíveis
+                const filmeIndex = Math.floor(Math.random() * filmesDisponiveis.length);
+                const filmeEscolhido = filmesDisponiveis[filmeIndex];
+
+                // Adiciona filme aos usados
+                this.filmesUsados.push(filmeEscolhido);
+
+                return filmeEscolhido;
+            }
+        }
+
+        // Instância global da roleta
+        const roletaFilmes = new RoletaFilmes();
+
+        function sortearFilme() {
+            const filmeElement = document.getElementById('filme');
+            filmeElement.textContent = roletaFilmes.gerarFilmeAleatorio();
+        }
+    </script>
+</body>
+</html>
